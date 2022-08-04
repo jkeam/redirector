@@ -20,6 +20,6 @@ spec:
         ports:
         - containerPort: 8000
       - name: springboot
-        image: quay.io/jkeam/redirector@sha256:ab9948fb729c0930835e1ccc5d1205fe718bc0bcd0d272c1d338cdced4158ec9
+        image: quay.io/jkeam/redirector@sha256:70b1538ef86080b951d694a452c5d4e15e1d38de8458028d60a9dd5d4378e0cb
         ports:
         - containerPort: 8081
