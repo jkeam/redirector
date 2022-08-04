@@ -16,10 +16,11 @@ spec:
     spec:
       containers:
       - name: apache
-        image: quay.io/jkeam/redirector-apache@sha256:4ebf44294816fbc97d233cca1a9fdecab5068993881540eeb4cb59744ec83c0e
+        image: quay.io/jkeam/redirector-apache@sha256:9a0efc1d483856d39e051a00e7ef186f51e905214c0898de0a3bea7ac82912fa
         ports:
         - containerPort: 8000
+        - containerPort: 7000
       - name: springboot
-        image: quay.io/jkeam/redirector@sha256:70b1538ef86080b951d694a452c5d4e15e1d38de8458028d60a9dd5d4378e0cb
+        image: quay.io/jkeam/redirector@sha256:74090cbe4c6da78e66d2e336b279d144c9e3a2d669c8f0e22749b6bb5948e3d7
         ports:
         - containerPort: 8081

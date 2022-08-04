@@ -1,7 +1,7 @@
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: redirector
+  name: redirector-public
   labels:
     app: redirector
 spec:
@@ -11,3 +11,19 @@ spec:
     name: redirector-service
   port:
     targetPort: apache
+
+---
+
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: redirector-protected
+  labels:
+    app: redirector
+spec:
+  path: /
+  to:
+    kind: Service
+    name: redirector-service
+  port:
+    targetPort: protected-apache

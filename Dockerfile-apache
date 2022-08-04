@@ -10,17 +10,29 @@ WORKDIR /app
 # module
 # /usr/lib64/httpd/modules
 
-# apache
+# install apache
 RUN dnf install httpd.x86_64 httpd-filesystem.noarch -y
-COPY ./static/index.html /var/www/html
 COPY ./apache/httpd.conf /etc/httpd/conf
 COPY ./apache/virtualhost.conf /etc/httpd/conf.d
 COPY ./start.sh /app
 
+# public site
+COPY ./static/public/index.html /var/www/html
+
+# private site
+RUN mkdir -p /var/www/protected
+COPY ./static/protected/index.html /var/www/protected
+
+# hacky, should create a user that has access to these dirs
 RUN chmod -R 777 /run/httpd
 RUN chmod -R 777 /etc/httpd/logs
 
+# basic auth
+RUN htpasswd -b -c .htpasswd user openshift
+RUN mkdir -p /etc/httpd/htpasswd && mv .htpasswd /etc/httpd/htpasswd/
+
 EXPOSE 8000
+EXPOSE 7000
 
 USER nobody
 ENTRYPOINT ["/bin/bash", "-c", "./start.sh"]
