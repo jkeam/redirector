@@ -1,0 +1,26 @@
+FROM docker.io/redhat/ubi8
+
+WORKDIR /app
+
+# conf
+# /etc/httpd/conf/httpd.conf
+# /etc/httpd/conf.modules.d/README
+# /etc/httpd/conf.modules.d/00-proxy.conf
+
+# module
+# /usr/lib64/httpd/modules
+
+# apache
+RUN dnf install httpd.x86_64 httpd-filesystem.noarch -y
+COPY ./static/index.html /var/www/html
+COPY ./apache/httpd.conf /etc/httpd/conf
+COPY ./apache/virtualhost.conf /etc/httpd/conf.d
+COPY ./start.sh /app
+
+RUN chmod -R 777 /run/httpd
+RUN chmod -R 777 /etc/httpd/logs
+
+EXPOSE 8000
+
+USER nobody
+ENTRYPOINT ["/bin/bash", "-c", "./start.sh"]

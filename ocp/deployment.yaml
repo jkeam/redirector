@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redirector-deployment
+  labels:
+    app: redirector
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redirector
+  template:
+    metadata:
+      labels:
+        app: redirector
+    spec:
+      containers:
+      - name: apache
+        image: quay.io/jkeam/redirector-apache@sha256:4ebf44294816fbc97d233cca1a9fdecab5068993881540eeb4cb59744ec83c0e
+        ports:
+        - containerPort: 8000
+      - name: springboot
+        image: quay.io/jkeam/redirector@sha256:ab9948fb729c0930835e1ccc5d1205fe718bc0bcd0d272c1d338cdced4158ec9
+        ports:
+        - containerPort: 8081

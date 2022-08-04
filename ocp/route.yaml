@@ -1,0 +1,13 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: redirector
+  labels:
+    app: redirector
+spec:
+  path: /
+  to:
+    kind: Service
+    name: redirector-service
+  port:
+    targetPort: apache
