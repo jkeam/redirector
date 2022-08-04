@@ -35,7 +35,7 @@ public class MainController {
         return modelAndView;
     }
 
-    @PostMapping("/redirectname")
+    @PostMapping("/redirectme")
     public ModelAndView redirectName(@RequestParam(name = "redirectname") String redirectname,
                                      @RequestParam(name = "customname") String customname) {
         logger.debug("[redirectName] begin");
@@ -54,7 +54,7 @@ public class MainController {
                 location = "redirect:https://twitter.com";
                 break;
             default:
-                location = "/show";
+                location = "show";
                 model.addAttribute("name", customname);
         }
         ModelAndView modelAndView = new ModelAndView(location, model);
